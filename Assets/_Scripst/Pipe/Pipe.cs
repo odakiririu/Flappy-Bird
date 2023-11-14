@@ -21,5 +21,17 @@ public class Pipe : MonoBehaviour
     {     
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
+    private void OnEnable()
+    {
+        Invoke("Destroy", 10f);
+    }
+    private void Destroy()
+    {
+        gameObject.SetActive(false);
+    }
+    private void OnDisable()
+    {
+        CancelInvoke();
+    }
 
 }

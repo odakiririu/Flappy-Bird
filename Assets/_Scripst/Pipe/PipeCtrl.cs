@@ -33,8 +33,11 @@ public class PipeCtrl : MonoBehaviour
         countDown -= Time.deltaTime;
         if (countDown <= 0)
         {
-
-            Instantiate(pipePrefab, RandomPositionPipe(), Quaternion.identity);
+            //Instantiate(pipePrefab, RandomPositionPipe(), Quaternion.identity);
+            GameObject ob = GameObjectPool.instance.GetGameObjectPool(pipePrefab);
+            ob.SetActive(true);
+            ob.transform.position = RandomPositionPipe();
+            ob.transform.rotation = Quaternion.identity;
             countDown = timeDuration;
         }
     }
