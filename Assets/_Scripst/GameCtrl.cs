@@ -9,6 +9,8 @@ public class GameCtrl : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txtbestScore;
     [SerializeField] private GameObject pnButtonStartGame;
     [SerializeField] private GameObject pnEndGame;
+    [SerializeField] private GameObject buttonPauseGame;
+    [SerializeField] private GameObject buttonResumeGame;
     [SerializeField] private int currentScore;  
     [SerializeField] private int bestScore;  
     public enum GameState
@@ -53,7 +55,6 @@ public class GameCtrl : MonoBehaviour
                 BirdCtrl.Ins.Init();
                 break;
             case GameState.GamePause:
-                PauseGame();
                 break;
             case GameState.GameOver:
                 SaveScoreInPlayerPrefs();
@@ -66,6 +67,7 @@ public class GameCtrl : MonoBehaviour
     {
         SetGameManagerState(GameState.GamePlay);
         UICtrl.Ins.SetActive(pnButtonStartGame, false);
+        UICtrl.Ins.SetActive(buttonPauseGame, true);
     }
     public void ButtonRestart() // click here set active pannel Endgame include button restart game, image endgame and set state open game
     {
@@ -74,10 +76,14 @@ public class GameCtrl : MonoBehaviour
     }
     public void PauseGame()
     {
+        UICtrl.Ins.SetActive(buttonPauseGame, false);
+        UICtrl.Ins.SetActive(buttonResumeGame, true);
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
+        UICtrl.Ins.SetActive(buttonPauseGame, true);
+        UICtrl.Ins.SetActive(buttonResumeGame, false);
         Time.timeScale = 1;
     }
     void UpdateUI()

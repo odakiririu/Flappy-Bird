@@ -6,6 +6,7 @@ using static GameCtrl;
 public class BirdCtrl : MonoBehaviour
 {
     public static BirdCtrl Ins;
+    public float upSpeed = 4.5f;
     private void Awake()
     {
         if (Ins == null)
@@ -26,5 +27,10 @@ public class BirdCtrl : MonoBehaviour
         bird.transform.name = "Bird";
         bird.transform.parent = transform;
     }
-    
+    public void Jump()
+    {
+        if (GameCtrl.Ins.gameState != GameState.GamePlay) return;
+            transform.GetComponentInChildren<Rigidbody2D>().velocity = Vector2.up * upSpeed;
+            AudioCtrl.Ins.PlayMusic("sfx_wing");
+    }
 }
